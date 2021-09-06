@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <funarbe_pagamentos>
+                <title>Funarbe Pagamentos</title>
+                <model>Funarbe\Pagamentos\Model\Pagamentos</model>
+                <active>1</active>
+                <cctypes>AE,VI,MC,DI</cctypes>
+            </funarbe_pagamentos>
+        </payment>
+    </default>
+</config>
+
