@@ -6,25 +6,41 @@
             <span data-bind="text: getTitle()"></span>
         </label>
     </div>
+
     <div class="payment-method-content">
         <!-- ko foreach: getRegion('messages') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
+
         <div class="payment-method-billing-address">
             <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </div>
 
-        <!-- Render the native credit card form. -->
-        <form class="form" data-bind="attr: {'id': getCode() + '-form'}">
-            <!-- ko template: 'Magento_Payment/payment/cc-form' --><!-- /ko -->
-        </form>
-
         <div class="checkout-agreements-block">
             <!-- ko foreach: $parent.getRegion('before-place-order') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-xl-8">
+                <div class="sy-checkout-payment-check-card">
+                    <div class="sy-checkout-payment-check-card-title">Abertura de ponto 9/2021
+                    </div>
+                    <div class="informacao justify-content-between">
+                        <div class="col-auto">Funcionário Funarbe</div>
+                        <div class="linha"></div>
+                        <div class="col-auto">dia 14</div>
+                    </div>
+                    <div class="informacao justify-content-between">
+                        <div class="col-auto">Servidor UFV</div>
+                        <div class="linha"></div>
+                        <div class="col-auto">dia 23</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="actions-toolbar">
@@ -38,3 +54,28 @@
         </div>
     </div>
 </div>
+
+<style>
+    .sy-checkout-payment-check-card {
+        background-color: #f0f0f0;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: .25rem;
+    }
+
+    .sy-checkout-payment-check-card .sy-checkout-payment-check-card-title {
+        font-weight: 700;
+        margin-bottom: .5rem;
+    }
+
+    .justify-content-between {
+        justify-content: space-between !important;
+    }
+
+    .informacao {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        align-items: center;
+    }
+</style>

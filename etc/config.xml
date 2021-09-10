@@ -4,10 +4,12 @@
     <default>
         <payment>
             <funarbe_pagamentos>
-                <title>Funarbe Pagamentos</title>
-                <model>Funarbe\Pagamentos\Model\Pagamentos</model>
                 <active>1</active>
-                <cctypes>AE,VI,MC,DI</cctypes>
+                <model>Funarbe\Pagamentos\Model\Pagamentos</model>
+                <order_status>pending</order_status>
+                <title>Chequinho / Cartão Alimentiação Supermercado Escola</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
             </funarbe_pagamentos>
         </payment>
     </default>
