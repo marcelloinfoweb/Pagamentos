@@ -27,11 +27,11 @@
 		<div class="row">
 			<div class="col-md-10 col-xl-8">
 				<div class="sy-checkout-payment-check-card">
-					<div class="sy-checkout-payment-check-card-title">Abertura de ponto <span id="dataInicioMes"></span>/<span id="dataInicioAno"></span></div>
+					<div class="sy-checkout-payment-check-card-title">Abertura de ponto <span id="dataInicioFnbMes"></span>/<span id="dataInicioFnbAno"></span></div>
 					<div class="informacao justify-content-between">
 						<div class="col-auto">Funcionário Funarbe</div>
 						<div class="linha"></div>
-						<div class="col-auto">dia <span id="dataInicioDia"></span> </div>
+						<div class="col-auto">dia <span id="dataInicioFnbDia"></span> </div>
 					</div>
 					<div class="informacao justify-content-between">
 						<div class="col-auto">Servidor UFV</div>
@@ -44,13 +44,11 @@
 
 		<div class="actions-toolbar">
 			<div class="primary">
-                <!-- ko if: isDisplayed() -->
 				<button data-role="review-save" type="submit"
                         data-bind="attr: {title: $t('Place Order')}, enable: (getCode() == isChecked()), click: placeOrder, css: {disabled: !isPlaceOrderActionAllowed()}"
                         class="action primary checkout" disabled>
 					<span data-bind="i18n: 'Place Order'"></span>
 				</button>
-                <!-- /ko -->
 			</div>
 		</div>
 	</div>

@@ -8,13 +8,11 @@ define(
 
         function buscaPontoUfv()
         {
-            const customurl = "https://dev.marcelo.supermercado-escola/rest/V1/funarbe-supermercadoescolaapi/abertura-ponto-ufv";
             $.ajax({
-                url: customurl,
+                url: "http://dev.marcelo.controle-super/site/abertura-ponto-ufv-api",
                 type: 'GET',
-                dataType: 'json',
                 complete: function (response) {
-                    const dataInicio = response.responseJSON[0]['data_inicio']
+                    const dataInicio = response.responseJSON['data_inicio']
                     const formmated = dataInicio.split('-')
                     $('#dataInicioUfvAno').text(formmated[0])
                     $('#dataInicioUfvMes').text(formmated[1])
@@ -28,17 +26,15 @@ define(
 
         function buscaPontoFnb()
         {
-            const customurl = "https://dev.marcelo.supermercado-escola/rest/V1/funarbe-supermercadoescolaapi/abertura-ponto"
             $.ajax({
-                url: customurl,
+                url: "http://dev.marcelo.controle-super/site/abertura-ponto-fnb-api",
                 type: 'GET',
-                dataType: 'json',
                 complete: function (response) {
-                    const dataInicio = response.responseJSON[0]['data_inicio']
+                    const dataInicio = response.responseJSON['data_inicio']
                     const formmated = dataInicio.split('-')
-                    $('#dataInicioAno').text(formmated[0])
-                    $('#dataInicioMes').text(formmated[1])
-                    $('#dataInicioDia').text(formmated[2])
+                    $('#dataInicioFnbAno').text(formmated[0])
+                    $('#dataInicioFnbMes').text(formmated[1])
+                    $('#dataInicioFnbDia').text(formmated[2])
                 },
                 error: function (xhr, status, errorThrown) {
                     console.log('Error happens. Try again.')
@@ -55,10 +51,6 @@ define(
             },
             getMailingAddress: function () {
                 return window.checkoutConfig.payment.checkmo.mailingAddress;
-            },
-            isDisplayed: function () {
-                var customer = customerData.get('customer');
-                console.log(customer().firstname);
             }
         });
 
