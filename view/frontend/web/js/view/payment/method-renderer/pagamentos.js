@@ -3,13 +3,12 @@ define(
         'Magento_Checkout/js/view/payment/default',
         'jquery',
     ],
-    function (Component, $, checkoutjs) {
+    function (Component, $) {
         'use strict';
 
-        function buscaPontoUfv()
-        {
+        function buscaPontoUfv() {
             $.ajax({
-                url: "http://dev.marcelo.controle-super/site/abertura-ponto-ufv-api",
+                url: "https://controle.supermercadoescola.org.br/site/abertura-ponto-ufv-api",
                 type: 'GET',
                 complete: function (response) {
                     const dataInicio = response.responseJSON['data_inicio']
@@ -24,10 +23,9 @@ define(
             })
         }
 
-        function buscaPontoFnb()
-        {
+        function buscaPontoFnb() {
             $.ajax({
-                url: "http://dev.marcelo.controle-super/site/abertura-ponto-fnb-api",
+                url: "https://controle.supermercadoescola.org.br/site/abertura-ponto-fnb-api",
                 type: 'GET',
                 complete: function (response) {
                     const dataInicio = response.responseJSON['data_inicio']
