@@ -1,10 +1,16 @@
 define(
-    ['Magento_Checkout/js/view/payment/default', 'jquery', 'Magento_Checkout/js/model/quote', 'Magento_Checkout/js/action/select-payment-method', 'Magento_Checkout/js/checkout-data'],
-    function (Component, $, quote, selectPaymentMethodAction, checkoutData) {
+    [
+        'Magento_Checkout/js/view/payment/default',
+        'jquery',
+        'Magento_Checkout/js/model/quote',
+        'Magento_Customer/js/model/customer',
+        'Magento_Customer/js/customer-data'
+    ],
+    function (Component, $, quote, customer) {
         'use strict';
 
         const urlControle = 'https://controle.supermercadoescola.org.br/site'
-        const urlEcommerce = 'https://sitenovo.supermercadoescola.org.br'
+        const urlEcommerce = 'http://dev.supermercadoescola.wsl'
         const urlApi = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
         const urlApiLimiteDisponivel = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor-limite-disponivel'
 
@@ -45,75 +51,94 @@ define(
         }
 
         async function verificaCPF() {
-            const cpf = "050.189.164-19"
+            const cpf = customer.customerData.taxvat
 
             const integrator = await getDadosIntegrator(cpf)
-            const matricula = integrator[0]['CAMPOLIVRE']
+            console.log(integrator)
 
-            if (matricula.startsWith('F')) {
-                $('#ufv').hide()
+            if (integrator.length != 0) {
+                const matricula = integrator[0]['CAMPOLIVRE']
 
-                // matrícula Funarbe
-                const pontoFnb = await getBuscaPontoFnb()
-                const dataAbertura = pontoFnb.data_inicio
-                const dataFechamento = pontoFnb.data_final
+                if (matricula.startsWith('F')) {
+                    $('#ufv').hide()
 
-                const date = dataAbertura.split('-')
-                $('#dataInicioFnbAno').text(date[0])
-                $('#dataInicioFnbMes').text(date[1])
-                $('#dataInicioFnbDia').text(date[2])
+                    // matrícula Funarbe
+                    const pontoFnb = await getBuscaPontoFnb()
+                    const dataAbertura = pontoFnb.data_inicio
+                    const dataFechamento = pontoFnb.data_final
 
-                const data = await getDadosIntegratorLimiteDisponivel(cpf, dataAbertura, dataFechamento);
-                const nome = data[0].NOME
-                const cc = data[0].CGCCFO
-                const cpfcnpj = cc.substring(0,7) + ".***-**" + cc.substring(14, cc.length)
-                const limiteChequinho = parseFloat(data[0].LIMITECREDITO)
-                const limiteChequinhoFormatado = limiteChequinho.toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL'
-                })
-                const limiteDisponivelChequinho = data[0].LIMITEDISPONIVELCHEQUINHO
-                const limiteDisponivelChequinhoFormatado = limiteDisponivelChequinho.toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL'
-                })
-                $('#integNomeCliente').text(nome)
-                $('#integCpfCnpjCliente').text(cpfcnpj)
-                $('#limiteChequinho').text("Limite: " + limiteChequinhoFormatado)
-                $('#limiteDisponivelChequinho').text("Disponível: " + limiteDisponivelChequinhoFormatado)
+                    const date = dataAbertura.split('-')
+                    $('#dataInicioFnbAno').text(date[0])
+                    $('#dataInicioFnbMes').text(date[1])
+                    $('#dataInicioFnbDia').text(date[2])
 
-                const totals = quote.totals();
+                    const data = await getDadosIntegratorLimiteDisponivel(cpf, dataAbertura, dataFechamento);
+                    const nome = data[0].NOME
+                    const cc = data[0].CGCCFO
+                    const cpfcnpj = cc.substring(0, 7) + ".***-**" + cc.substring(14, cc.length)
+                    const limiteChequinho = parseFloat(data[0].LIMITECREDITO)
+                    const limiteChequinhoFormatado = limiteChequinho.toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
+                    const limiteDisponivelChequinho = data[0].LIMITEDISPONIVELCHEQUINHO
+                    const limiteDisponivelChequinhoFormatado = limiteDisponivelChequinho.toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
+                    $('#integNomeCliente').text(nome)
+                    $('#integCpfCnpjCliente').text(cpfcnpj)
+                    $('#limiteChequinho').text("Limite: " + limiteChequinhoFormatado)
+                    $('#limiteDisponivelChequinho').text("Disponível: " + limiteDisponivelChequinhoFormatado)
 
-                const valorTotal = (totals ? totals : quote)['grand_total']
-                const valorTotalFormatado = valorTotal.toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL'
-                })
+                    const totals = quote.totals();
 
+                    const valorTotal = (totals ? totals : quote)['grand_total']
+                    const valorTotalFormatado = valorTotal.toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    })
+
+                    $('input:radio[id="chequinho_se"]').change(
+                        function () {
+                            if (valorTotal > limiteDisponivelChequinho) {
+                                $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+                                $('#alert').html('<br><br>' +
+                                    '<div class="message info error" role="alert">' +
+                                    'Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
+                                    '</div>'
+                                )
+                            } else {
+                                $('#alert').html('<br><br>' +
+                                    '<div class="message-success success message" role="alert">' +
+                                    'Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
+                                    '</div>'
+                                )
+                            }
+
+                        });
+
+                } else {
+                    const pontoUfv = await getBuscaPontoUfv()
+                    const dataAbertura = pontoUfv.data_inicio
+                    const dataFechamento = pontoUfv.data_final
+                    return await getDadosIntegratorLimiteDisponivel(cpf, dataAbertura, dataFechamento)
+                }
+            } else {
                 $('input:radio[id="chequinho_se"]').change(
                     function () {
-                        if (valorTotal > limiteDisponivelChequinho) {
-                            $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
-                            $('#alert').html('<br><br>' +
-                                '<div class="message info error" role="alert">' +
-                                    'Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                                '</div>'
-                            )
-                        } else {
-                            $('#alert').html('<br><br>' +
-                                '<div class="message success" role="alert">' +
-                                'Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                                '</div>'
-                            )
-                        }
+                        $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+                    })
+                $('#ufv').remove()
+                $('#fnb').remove()
+                $('.sy-checkout-payment-check-card-title').remove()
+                $('#dadosRm').remove()
 
-                    });
-
-            } else {
-                const pontoUfv = await getBuscaPontoUfv()
-                const dataAbertura = pontoUfv.data_inicio
-                const dataFechamento = pontoUfv.data_final
-                return await getDadosIntegratorLimiteDisponivel(cpf, dataAbertura, dataFechamento)
+                $('#alert').html('<br><br>' +
+                    '<div class="message info error" role="alert">' +
+                    'Cadastro de funcionário não encontrado, tente outra forma de pagamento.' +
+                    '</div>'
+                )
             }
         }
 
