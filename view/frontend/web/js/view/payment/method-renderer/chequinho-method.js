@@ -4,7 +4,7 @@ define(
         'use strict';
 
         const urlControle = 'https://controle.supermercadoescola.org.br/site'
-        const urlEcommerce = 'http://dev.supermercadoescola.wsl'
+        const urlEcommerce = 'https://sitenovo.supermercadoescola.org.br'
         const urlApi = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
         const urlApiLimiteDisponivel = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor-limite-disponivel'
 
