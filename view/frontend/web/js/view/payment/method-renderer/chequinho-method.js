@@ -4,15 +4,17 @@ define(
         'jquery',
         'Magento_Checkout/js/model/quote',
         'Magento_Customer/js/model/customer',
-        'Magento_Customer/js/customer-data'
+        'mage/url'
     ],
-    function (Component, $, quote, customer) {
+    function (Component, $, quote, customer, url) {
         'use strict';
+        // baseUrl já tem barra (/) no fim da url
+        const baseUrl = url.build('')
 
         const urlControle = 'https://controle.supermercadoescola.org.br/site'
-        const urlEcommerce = 'http://dev.supermercadoescola.wsl'
-        const urlApi = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
-        const urlApiLimiteDisponivel = '/rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor-limite-disponivel'
+        const urlEcommerce = baseUrl
+        const urlApi = 'rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
+        const urlApiLimiteDisponivel = 'rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor-limite-disponivel'
 
         async function getBuscaPontoUfv() {
             try {
