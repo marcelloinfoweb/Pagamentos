@@ -8,8 +8,8 @@ define(
 
         rendererList.push(
             {
-                type: 'funarbe_pagamentos',
-                component: 'Funarbe_Pagamentos/js/view/payment/method-renderer/pagamentos'
+                type: 'chequinho_se',
+                component: 'Funarbe_Pagamentos/js/view/payment/method-renderer/chequinho-method'
             }
         );
 

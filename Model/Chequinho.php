@@ -6,9 +6,9 @@ namespace Funarbe\Pagamentos\Model;
 
 use Magento\Payment\Model\Method\AbstractMethod;
 
-class Pagamentos extends AbstractMethod
+class Chequinho extends AbstractMethod
 {
-    public const CODE = 'funarbe_pagamentos';
+    public const CODE = 'chequinho_se';
 
     protected $_code = self::CODE;
     protected $_isOffline = true;

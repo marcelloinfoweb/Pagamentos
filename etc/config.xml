@@ -3,14 +3,22 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <funarbe_pagamentos>
+            <chequinho_se>
                 <active>1</active>
-                <model>Funarbe\Pagamentos\Model\Pagamentos</model>
+                <model>Funarbe\Pagamentos\Model\Chequinho</model>
                 <order_status>pending</order_status>
-                <title>Chequinho / Cartão Alimentiação Supermercado Escola</title>
+                <title>Chequinho</title>
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
-            </funarbe_pagamentos>
+            </chequinho_se>
+            <cartao_alimentacao_se>
+                <active>1</active>
+                <model>Funarbe\Pagamentos\Model\CartaoAlimentacao</model>
+                <order_status>pending</order_status>
+                <title>Cartão Alimentação Supermercado Escola</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </cartao_alimentacao_se>
         </payment>
     </default>
 </config>

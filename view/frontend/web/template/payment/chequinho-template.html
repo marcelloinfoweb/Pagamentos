@@ -25,19 +25,26 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-10 col-xl-8">
-				<div class="sy-checkout-payment-check-card">
-					<div class="sy-checkout-payment-check-card-title">Abertura de ponto <span id="dataInicioFnbMes"></span>/<span id="dataInicioFnbAno"></span></div>
-					<div class="informacao justify-content-between">
-						<div class="col-auto">Funcionário Funarbe</div>
+            <div class="col-md-10 col-xl-8">
+                <div class="sy-checkout-payment-check-card">
+                    <div class="sy-checkout-payment-check-card-title">Abertura de ponto <span id="dataInicioFnbMes"></span>/<span id="dataInicioFnbAno"></span></div>
+                    <div class="informacao justify-content-between" id="fnb">
+                        <div class="col-auto">Funcionário Funarbe</div>
 						<div class="linha"></div>
 						<div class="col-auto">dia <span id="dataInicioFnbDia"></span> </div>
 					</div>
-					<div class="informacao justify-content-between">
+					<div class="informacao justify-content-between" id="ufv">
 						<div class="col-auto">Servidor UFV</div>
 						<div class="linha"></div>
                         <div class="col-auto">dia <span id="dataInicioUfvDia"></span></div>
 					</div>
+                    <div style="margin: 10px 0">
+                        <span id="integNomeCliente"></span> /
+                        <span id="integCpfCnpjCliente"></span><br>
+                        <span id="limiteChequinho"></span><br>
+                        <span id="limiteDisponivelChequinho"></span>
+                        <span id="alert"></span>
+                    </div>
 				</div>
 			</div>
 		</div>

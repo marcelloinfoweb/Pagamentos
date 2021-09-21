@@ -20,10 +20,23 @@
                                                             <item name="children" xsi:type="array">
                                                                 <item name="pagamentos" xsi:type="array">
                                                                     <item name="component" xsi:type="string">
-                                                                        Funarbe_Pagamentos/js/view/payment/pagamentos
+                                                                        Funarbe_Pagamentos/js/view/payment/Chequinho
                                                                     </item>
                                                                     <item name="methods" xsi:type="array">
-                                                                        <item name="funarbe_pagamentos"
+                                                                        <item name="chequinho_se"
+                                                                              xsi:type="array">
+                                                                            <item name="isBillingAddressRequired"
+                                                                                  xsi:type="boolean">true
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="cartao-alimentacao" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">
+                                                                        Funarbe_Pagamentos/js/view/payment/CartaoAlimentacao
+                                                                    </item>
+                                                                    <item name="methods" xsi:type="array">
+                                                                        <item name="cartao_alimentacao_se"
                                                                               xsi:type="array">
                                                                             <item name="isBillingAddressRequired"
                                                                                   xsi:type="boolean">true

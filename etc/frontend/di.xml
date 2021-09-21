@@ -3,7 +3,8 @@
     <type name="Magento\Payment\Model\CcGenericConfigProvider">
         <arguments>
             <argument name="methodCodes" xsi:type="array">
-                <item name="funarbe_pagamentos" xsi:type="const">Funarbe\Pagamentos\Model\Pagamentos::CODE</item>
+                <item name="chequinho_se" xsi:type="const">Funarbe\Pagamentos\Model\Chequinho::CODE</item>
+                <item name="cartao_alimentacao_se" xsi:type="const">Funarbe\Pagamentos\Model\CartaoAlimentacao::CODE</item>
             </argument>
         </arguments>
     </type>
