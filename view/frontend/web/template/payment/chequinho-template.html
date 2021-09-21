@@ -1,43 +1,46 @@
 <div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
-	<div class="payment-method-title field choice">
-		<input type="radio" name="payment[method]" class="radio"
-		data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
-		<label data-bind="attr: {'for': getCode()}" class="label">
-			<span data-bind="text: getTitle()"></span>
-		</label>
-	</div>
+    <div class="payment-method-title field choice">
+        <input type="radio" name="payment[method]" class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
 
-	<div class="payment-method-content">
-		<!-- ko foreach: getRegion('messages') -->
-		<!-- ko template: getTemplate() --><!-- /ko -->
-		<!--/ko-->
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
 
-		<div class="payment-method-billing-address">
-			<!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-			<!-- ko template: getTemplate() --><!-- /ko -->
-			<!--/ko-->
-		</div>
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
 
-		<div class="checkout-agreements-block">
-			<!-- ko foreach: $parent.getRegion('before-place-order') -->
-			<!-- ko template: getTemplate() --><!-- /ko -->
-			<!--/ko-->
-		</div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
 
-		<div class="row">
+        <div class="row">
             <div class="col-md-10 col-xl-8">
                 <div class="sy-checkout-payment-check-card">
-                    <div class="sy-checkout-payment-check-card-title">Abertura de ponto <span id="dataInicioFnbMes"></span>/<span id="dataInicioFnbAno"></span></div>
+                    <div class="sy-checkout-payment-check-card-title fnb">Abertura de ponto <span
+                        id="dataInicioFnbMes"></span>/<span id="dataInicioFnbAno"></span></div>
                     <div class="informacao justify-content-between" id="fnb">
                         <div class="col-auto">Funcionário Funarbe</div>
-						<div class="linha"></div>
-						<div class="col-auto">dia <span id="dataInicioFnbDia"></span> </div>
-					</div>
-					<div class="informacao justify-content-between" id="ufv">
-						<div class="col-auto">Servidor UFV</div>
-						<div class="linha"></div>
+                        <div class="linha"></div>
+                        <div class="col-auto">dia <span id="dataInicioFnbDia"></span></div>
+                    </div>
+                    <div class="sy-checkout-payment-check-card-title ufv">Abertura de ponto <span
+                        id="dataInicioUfvMes"></span>/<span id="dataInicioUfvAno"></span></div>
+                    <div class="informacao justify-content-between" id="ufv">
+                        <div class="col-auto">Servidor UFV</div>
+                        <div class="linha"></div>
                         <div class="col-auto">dia <span id="dataInicioUfvDia"></span></div>
-					</div>
+                    </div>
                     <div id="dadosRm" style="margin: 10px 0">
                         <span id="integNomeCliente"></span> /
                         <span id="integCpfCnpjCliente"></span><br>
@@ -46,42 +49,42 @@
                     </div>
                     <span id="alert"></span>
                 </div>
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="actions-toolbar">
-			<div class="primary">
-				<button data-role="review-save" type="submit"
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button data-role="review-save" type="submit"
                         data-bind="attr: {title: $t('Place Order')}, enable: (getCode() == isChecked()), click: placeOrder, css: {disabled: !isPlaceOrderActionAllowed()}"
                         class="action primary checkout" disabled>
-					<span data-bind="i18n: 'Place Order'"></span>
-				</button>
-			</div>
-		</div>
-	</div>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
-	.sy-checkout-payment-check-card {
-		background-color: #f0f0f0;
-		padding: 1rem;
-		margin-top: 1rem;
-		border-radius: .25rem;
-	}
+    .sy-checkout-payment-check-card {
+        background-color: #f0f0f0;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: .25rem;
+    }
 
-	.sy-checkout-payment-check-card .sy-checkout-payment-check-card-title {
-		font-weight: 700;
-		margin-bottom: .5rem;
-	}
+    .sy-checkout-payment-check-card .sy-checkout-payment-check-card-title {
+        font-weight: 700;
+        margin-bottom: .5rem;
+    }
 
-	.justify-content-between {
-		justify-content: space-between !important;
-	}
+    .justify-content-between {
+        justify-content: space-between !important;
+    }
 
-	.informacao {
-		display: flex;
-		flex-wrap: wrap;
-		position: relative;
-		align-items: center;
-	}
+    .informacao {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        align-items: center;
+    }
 </style>
