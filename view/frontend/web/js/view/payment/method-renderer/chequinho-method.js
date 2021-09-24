@@ -55,7 +55,7 @@ define(
         async function verificaCPF() {
             const cpf = customer.customerData.taxvat
             const integrator = await getDadosIntegrator(cpf)
-            if (integrator.length != 0) {
+            if (integrator.length !== 0) {
                 const matricula = integrator[0]['CAMPOLIVRE']
 
                 if (matricula.startsWith('F')) {
@@ -93,7 +93,8 @@ define(
                 $('input:radio[id="chequinho_se"]').change(
                     function () {
                         $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
-                    })
+                    }
+                )
                 $('#ufv').remove()
                 $('#fnb').remove()
                 $('.sy-checkout-payment-check-card-title').remove()
@@ -101,8 +102,7 @@ define(
                 $('#alert').html('<br><br>' +
                     '<div class="message info error" role="alert">' +
                     'Cadastro de funcionário não encontrado, tente outra forma de pagamento.' +
-                    '</div>'
-                )
+                    '</div>')
             }
         }
 
@@ -134,18 +134,17 @@ define(
                     if (valorTotal > limiteDisponivelChequinho) {
                         $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
                         $('#alert').html('<br><br>' +
-                            '<div class="message info error" role="alert">' +
-                            'Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                            '</div>'
-                        )
+                            '<div class="message-error error message" role="alert">' +
+                            '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado + '</div>' +
+                            '</div>')
                     } else {
                         $('#alert').html('<br><br>' +
                             '<div class="message-success success message" role="alert">' +
-                            'Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                            '</div>'
-                        )
+                            '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado + '</div>' +
+                            '</div>')
                     }
-                });
+                }
+            );
         }
 
         verificaCPF()
@@ -160,5 +159,6 @@ define(
                 return window.checkoutConfig.payment.checkmo.mailingAddress;
             }
         });
-    });
+    }
+);
 

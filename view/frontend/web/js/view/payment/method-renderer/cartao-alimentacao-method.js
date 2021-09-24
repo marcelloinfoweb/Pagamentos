@@ -8,13 +8,12 @@ define(
     ],
     function (Component, $, quote, customer, url) {
         'use strict'
-        // baseUrl já tem barra (/) no fim da url
-        const baseUrl = url.build('')
-
-        const urlEcommerce = baseUrl
+        // urlEcommerce já tem barra (/) no fim da url
+        const urlEcommerce = url.build('')
         const urlApi = 'rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
 
-        async function getDadosIntegrator(cpf) {
+        async function getDadosIntegrator(cpf)
+        {
             try {
                 const integrator = await fetch(urlEcommerce + urlApi + '?cpf=' + cpf)
                 return await integrator.json()
@@ -23,10 +22,11 @@ define(
             }
         }
 
-        async function verificaCPF() {
+        async function verificaCPF()
+        {
             const cpf = customer.customerData.taxvat
             const data = await getDadosIntegrator(cpf)
-            if (data.length != 0) {
+            if (data.length !== 0) {
                 const matricula = data[0]['CAMPOLIVRE']
                 if (matricula.startsWith('F')) {
 
@@ -56,17 +56,16 @@ define(
                                 $('#alertCA').html('<br>' +
                                     '<div class="message-success success message" role="alert">' +
                                     '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra não excede o valor do saldo disponível de ' + limiteSaldoCAFormatado + '</div>' +
-                                    '</div>'
-                                )
+                                    '</div>')
                             } else {
                                 $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true)
                                 $('#alertCA').html('<br>' +
-                                    '<div class="message info error" role="alert">' +
+                                    '<div class="message-error error message" role="alert">' +
                                     '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra excede o valor do saldo disponível de ' + limiteSaldoCAFormatado + '</div>' +
-                                    '</div>'
-                                )
+                                    '</div>')
                             }
-                        })
+                        }
+                    )
                 } else {
                     $('input:radio[id="cartao_alimentacao_se"]')
                         .change(function () {
@@ -75,10 +74,9 @@ define(
 
                     $('#dadosRmCa').remove()
                     $('#alertCA').html('<br><br>' +
-                        '<div class="message info error" role="alert">' +
+                        '<div class="message-error error message" role="alert">' +
                         '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Cadastro de funcionário não encontrado, tente outra forma de pagamento.</div>' +
-                        '</div>'
-                    )
+                        '</div>')
                 }
             }
         }
