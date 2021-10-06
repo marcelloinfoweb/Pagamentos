@@ -25,7 +25,7 @@ define(
         async function verificaCPF() {
             const cpf = customer.customerData.taxvat
             const data = await getDadosIntegrator(cpf)
-            debugger
+
             if (data.length !== 0) {
                 const matricula = data[0]['CAMPOLIVRE']
                 if (matricula.startsWith('F')) {
