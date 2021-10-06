@@ -12,20 +12,20 @@ define(
         const urlEcommerce = url.build('')
         const urlApi = 'rest/V1/funarbe-supermercadoescolaapi/integrator-rm-cliente-fornecedor'
 
-        async function getDadosIntegrator(cpf)
-        {
+        async function getDadosIntegrator(cpf) {
             try {
                 const integrator = await fetch(urlEcommerce + urlApi + '?cpf=' + cpf)
                 return await integrator.json()
+                console.log(integrator)
             } catch (error) {
                 console.log(error)
             }
         }
 
-        async function verificaCPF()
-        {
+        async function verificaCPF() {
             const cpf = customer.customerData.taxvat
             const data = await getDadosIntegrator(cpf)
+            debugger
             if (data.length !== 0) {
                 const matricula = data[0]['CAMPOLIVRE']
                 if (matricula.startsWith('F')) {
@@ -55,33 +55,38 @@ define(
                             if (valorTotal < limiteSaldoCA) {
                                 $('#alertCA').html('<br>' +
                                     '<div class="message-success success message" role="alert">' +
-                                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra não excede o valor do saldo disponível de ' + limiteSaldoCAFormatado + '</div>' +
+                                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+                                    'Valor da compra não excede o valor do saldo disponível de ' + limiteSaldoCAFormatado +
+                                    '</div>' +
                                     '</div>')
                             } else {
                                 $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true)
                                 $('#alertCA').html('<br>' +
                                     '<div class="message-error error message" role="alert">' +
-                                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Valor da compra excede o valor do saldo disponível de ' + limiteSaldoCAFormatado + '</div>' +
+                                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+                                    'Valor da compra excede o valor do saldo disponível de ' + limiteSaldoCAFormatado +
+                                    '</div>' +
                                     '</div>')
                             }
                         }
                     )
-                } else {
-                    $('input:radio[id="cartao_alimentacao_se"]')
-                        .change(function () {
-                            $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
-                        })
-
-                    $('#dadosRmCa').remove()
-                    $('#alertCA').html('<br><br>' +
-                        '<div class="message-error error message" role="alert">' +
-                        '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">Cadastro de funcionário não encontrado, tente outra forma de pagamento.</div>' +
-                        '</div>')
                 }
+            } else {
+                $('input:radio[id="cartao_alimentacao_se"]').change(function () {
+                    $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+                })
+
+                $('#dadosRmCa').remove()
+                $('#alertCA').html('<br><br>' +
+                    '<div class="message-error error message" role="alert">' +
+                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+                    'Cadastro de funcionário não encontrado, tente outra forma de pagamento.' +
+                    '</div>' +
+                    '</div>')
             }
         }
 
-        verificaCPF()
+        verificaCPF().then().catch(e => console.log('Erro:', e))
 
         return Component.extend({
             defaults: {
