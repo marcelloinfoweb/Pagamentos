@@ -126,29 +126,29 @@ define(
             $('#limiteChequinho').text("Limite: " + limiteChequinhoFormatado)
             $('#limiteDisponivelChequinho').text("Disponível: " + limiteDisponivelChequinhoFormatado)
 
-            const totals = quote.totals();
-            const valorTotal = (totals ? totals : quote)['grand_total']
-
-            $('input:radio[id="chequinho_se"]').change(
-                function () {
-                    if (valorTotal > limiteDisponivelChequinho) {
-                        $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
-                        $('#alert').html('<br><br>' +
-                            '<div class="message-error error message" role="alert">' +
-                            '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
-                            'Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                            '</div>' +
-                            '</div>')
-                    } else {
-                        $('#alert').html('<br><br>' +
-                            '<div class="message-success success message" role="alert">' +
-                            '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
-                            'Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
-                            '</div>' +
-                            '</div>')
-                    }
-                }
-            );
+            // const totals = quote.totals();
+            // const valorTotal = (totals ? totals : quote)['grand_total']
+            //
+            // $('input:radio[id="chequinho_se"]').change(
+            //     function () {
+            //         if (valorTotal > limiteDisponivelChequinho) {
+            //             $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+            //             $('#alert').html('<br><br>' +
+            //                 '<div class="message-error error message" role="alert">' +
+            //                 '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+            //                 'Valor da compra excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
+            //                 '</div>' +
+            //                 '</div>')
+            //         } else {
+            //             $('#alert').html('<br><br>' +
+            //                 '<div class="message-success success message" role="alert">' +
+            //                 '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+            //                 'Valor da compra não excede o valor do limite disponível de ' + limiteDisponivelChequinhoFormatado +
+            //                 '</div>' +
+            //                 '</div>')
+            //         }
+            //     }
+            // );
         }
 
         verificaCPF().then().catch(e => console.log('Erro:', e))
