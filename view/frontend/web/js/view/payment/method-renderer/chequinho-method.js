@@ -100,8 +100,10 @@ define(
                 $('.sy-checkout-payment-check-card-title').remove()
                 $('#dadosRm').remove()
                 $('#alert').html('<br><br>' +
-                    '<div class="message info error" role="alert">' +
-                    'Cadastro de funcionário não encontrado, tente outra forma de pagamento.' +
+                    '<div class="message-error error message" role="alert">' +
+                    '<div data-bind="html: $parent.prepareMessageForHtml(message.text)">' +
+                    'Não é possível usar esse método de pagamento, tente outra opção.' +
+                    '</div>' +
                     '</div>')
             }
         }
@@ -123,8 +125,21 @@ define(
             })
             $('#integNomeCliente').text(nome)
             $('#integCpfCnpjCliente').text(cpfcnpj)
-            $('#limiteChequinho').text("Limite: " + limiteChequinhoFormatado)
-            $('#limiteDisponivelChequinho').text("Disponível: " + limiteDisponivelChequinhoFormatado)
+            if (limiteChequinho === 0 || limiteChequinho === null) {
+                $('input:radio[id="chequinho_se"]').change(
+                    function () {
+                        $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+                    }
+                )
+                $('.checkout-payment-method .actions-toolbar .primary').prop("disabled", true);
+                $('#alert').html('<br><br>' +
+                    '<div class="message info error" role="alert">' +
+                    'Não é possível usar esse método de pagamento, tente outra opção.' +
+                    '</div>')
+            } else {
+                $('#limiteChequinho').text("Limite: " + limiteChequinhoFormatado)
+                $('#limiteDisponivelChequinho').text("Disponível: " + limiteDisponivelChequinhoFormatado)
+            }
 
             // const totals = quote.totals();
             // const valorTotal = (totals ? totals : quote)['grand_total']
